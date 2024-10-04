@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "BST en Disco/1.0.0": {
+        "runtime": {
+          "BST en Disco.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BST en Disco/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

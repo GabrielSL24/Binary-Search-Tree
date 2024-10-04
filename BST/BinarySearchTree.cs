@@ -1,6 +1,4 @@
-﻿using Entities;
-
-namespace BST_en_Disco
+﻿namespace BST_en_Disco
 {
     //La estructura principal se base sobre un archivo binario, se usan generics
     public class BinarySearchTree<T> where T : IComparable<T> 
@@ -8,22 +6,31 @@ namespace BST_en_Disco
         
         private string rutaArchivoBinario;
 
-        public BinarySearchTree(string rutaArchivo)
+        public BinarySearchTree()
         {
-            rutaArchivoBinario = rutaArchivo ?? Entities.ConfigPath.BinaryFileWhereBTSisCreated;
+            rutaArchivoBinario = Entities.ConfigPath.BinaryFileWhereBTSisCreated;
 
             //Creamos el archivo si no existe.
             string? directorio = Path.GetDirectoryName(rutaArchivoBinario);
 
-            if (!Directory.Exists(directorio))
+            if (directorio != null && !Directory.Exists(directorio))
             {
                 Directory.CreateDirectory(directorio);
+                Console.WriteLine($"Directorio creado en: {directorio}");
             }
 
             if (!File.Exists(rutaArchivoBinario))
             {
-                using (var fs = File.Create(rutaArchivoBinario)) {}
+                using (var fs = File.Create(rutaArchivoBinario))
+                {
+                    Console.WriteLine($"Archivo creado en: {rutaArchivoBinario}");
+                }
             }
+        }
+
+        public static class ConfigPath
+        {
+            public static string FilePath { get; set; } = "/ruta/por/defecto/archivo.dat";
         }
         
         //Método para leer un nodo desde un nodo en un a posición específica:
@@ -52,17 +59,33 @@ namespace BST_en_Disco
         //Método utilizado para escribir la información de un nodo en una posición dentro del archivo.
         public void EscribirInfoNodo(TreeNode<T> nodo)
         {
-            using (BinaryWriter writer = new BinaryWriter(File.Open(rutaArchivoBinario,FileMode.OpenOrCreate)))
+            using (BinaryWriter writer = new BinaryWriter(File.Open(rutaArchivoBinario, FileMode.OpenOrCreate)))
             {
-                //Se mueve el lector/escritor a la posición del nodo en el archivo.
-                writer.Seek((int)nodo.PosicionActual,SeekOrigin.Begin);
+                // Se mueve el lector/escritor a la posición del nodo en el archivo.
+                writer.Seek((int)nodo.PosicionActual, SeekOrigin.Begin);
 
-                //Se procede a escribir todos los datos/atributos del nodo:
-                writer.Write(nodo.ValorAlmacenar.ToString());  // Serializar el valor de forma adecuada
+                if (nodo.ValorAlmacenar != null)
+                {
+                    string? valorString = nodo.ValorAlmacenar.ToString();
+
+                    if (!string.IsNullOrEmpty(valorString))
+                    {
+                        writer.Write(valorString);  // Escribir el valor si no es nulo o vacío
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("El valor del nodo no tiene una representación válida.");
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException("El valor del nodo no puede ser nulo.");
+                }
+
+                // Escribir las posiciones izquierda y derecha del nodo.
                 writer.Write(nodo.PosicionIzquierda);
                 writer.Write(nodo.PosicionDerecha);
             }
         }
-
     }
 }
