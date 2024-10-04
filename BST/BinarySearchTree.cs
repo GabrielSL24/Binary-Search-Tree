@@ -1,48 +1,37 @@
-﻿namespace BST_en_Disco
+﻿using Entities;
+
+namespace BST_en_Disco
 {
-    //La estructura principal se base sobre un archivo binario, se usan generics
-    public class BinarySearchTree<T> where T : IComparable<T> 
+    public class BinarySearchTree<T> where T : IComparable<T>
     {
-        
         private string rutaArchivoBinario;
 
-        public BinarySearchTree()
+        public BinarySearchTree(string? rutaArchivo = null)
         {
-            rutaArchivoBinario = Entities.ConfigPath.BinaryFileWhereBTSisCreated;
+            rutaArchivoBinario = rutaArchivo ?? ConfigPath.BinaryFilePath;
+            InitializeSystem(rutaArchivoBinario);
+        }
 
-            //Creamos el archivo si no existe.
-            string? directorio = Path.GetDirectoryName(rutaArchivoBinario);
+        private void InitializeSystem(string ruta)
+        {
+            ConfigPath.EnsureDirectoryExists();
 
-            if (directorio != null && !Directory.Exists(directorio))
+            if (!File.Exists(ruta))
             {
-                Directory.CreateDirectory(directorio);
-                Console.WriteLine($"Directorio creado en: {directorio}");
-            }
-
-            if (!File.Exists(rutaArchivoBinario))
-            {
-                using (var fs = File.Create(rutaArchivoBinario))
+                using (var fs = File.Create(ruta))
                 {
-                    Console.WriteLine($"Archivo creado en: {rutaArchivoBinario}");
+                    Console.WriteLine($"Archivo creado en: {ruta}");
                 }
             }
         }
 
-        public static class ConfigPath
-        {
-            public static string FilePath { get; set; } = "/ruta/por/defecto/archivo.dat";
-        }
-        
         //Método para leer un nodo desde un nodo en un a posición específica:
         public TreeNode<T> LeerNodoValor(long posicion)
         {
             using (BinaryReader reader = new BinaryReader(File.Open(rutaArchivoBinario, FileMode.Open)))
             {
-
-                //Como se tiene que leer el valor específico de un nodo, movemos el lector a la osición justa del mismo
                 reader.BaseStream.Seek(posicion, SeekOrigin.Begin);
 
-                //Se procede a leer desde esa posición:
                 string LectorDeValores = reader.ReadString();
                 T valor = (T)Convert.ChangeType(LectorDeValores, typeof(T));
                 long posicionIzquierdaLector = reader.ReadInt64();
@@ -56,12 +45,10 @@
             }
         }
 
-        //Método utilizado para escribir la información de un nodo en una posición dentro del archivo.
         public void EscribirInfoNodo(TreeNode<T> nodo)
         {
             using (BinaryWriter writer = new BinaryWriter(File.Open(rutaArchivoBinario, FileMode.OpenOrCreate)))
             {
-                // Se mueve el lector/escritor a la posición del nodo en el archivo.
                 writer.Seek((int)nodo.PosicionActual, SeekOrigin.Begin);
 
                 if (nodo.ValorAlmacenar != null)
@@ -70,7 +57,7 @@
 
                     if (!string.IsNullOrEmpty(valorString))
                     {
-                        writer.Write(valorString);  // Escribir el valor si no es nulo o vacío
+                        writer.Write(valorString);
                     }
                     else
                     {
@@ -82,10 +69,31 @@
                     throw new InvalidOperationException("El valor del nodo no puede ser nulo.");
                 }
 
-                // Escribir las posiciones izquierda y derecha del nodo.
                 writer.Write(nodo.PosicionIzquierda);
                 writer.Write(nodo.PosicionDerecha);
             }
         }
+
+        public void Insert(T valor)
+        {
+            long posicionFinal = ObtenerPosicionFinalDelArchivo();
+            var insertOperation = new InsertBTSOperation<T>(valor, rutaArchivoBinario);
+            insertOperation.InsertarNodo(posicionFinal);
+        }
+
+        private long ObtenerPosicionFinalDelArchivo()
+        {
+            return new FileInfo(rutaArchivoBinario).Length;
+        }
+
+        //public TreeNode<T> Search(T valor)
+        //{
+//
+        //}
+//
+        //public void Delete(T valor)
+        //{
+        //    
+        //}
     }
 }

@@ -5,5 +5,7 @@ public class Program
     public static void Main(string[] args)
     {
         BinarySearchTree<int> arbol1 = new BinarySearchTree<int>();
+
+        arbol1.Insert(23);
     }
 }
