@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BST_en_Disco
+﻿namespace BST_en_Disco
 {
-    internal interface BSTInterface
+    public interface BSTInterface
     {
+        //Los métodos a implementar son los siguientes:
+        
 
     }
 }
