@@ -3,6 +3,7 @@ namespace BST_en_Disco
     public class BTSSearch<T> where T : IComparable<T>
     {
         private string RutaArchivoBinario;
+        public long posicionNodoEncontrado {get; private set;}
 
         public BTSSearch(string rutaArchivo)
         {
@@ -30,6 +31,7 @@ namespace BST_en_Disco
 
             if (comparacion == 0)
             {
+                posicionNodoEncontrado = posicionActual; 
                 // Valor encontrado
                 return true;
             }
