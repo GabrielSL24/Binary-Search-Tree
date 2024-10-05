@@ -32,6 +32,7 @@ namespace BST_en_Disco
             if (comparacion == 0)
             {
                 posicionNodoEncontrado = posicionActual; 
+                Console.WriteLine("Posición a poner en la varaible: " + posicionActual);
                 // Valor encontrado
                 return true;
             }

@@ -1,10 +1,13 @@
-﻿using Entities;
+﻿using BST_en_Disco.BST.operacionesBTS;
+using Entities;
 
 namespace BST_en_Disco
 {
     public class BinarySearchTree<T> where T : IComparable<T>
     {
         private string rutaArchivoBinario;
+
+        
         private const long POSICION_RAIZ = 0;
 
         public BinarySearchTree(string? rutaArchivo = null)
@@ -31,6 +34,12 @@ namespace BST_en_Disco
             var insertOperation = new InsertBSTOperation<T>(rutaArchivoBinario);
             insertOperation.Insert(valor);
         }
+
+        //public void Delete(T valor)
+        //{
+        //    var deleteOperation = new DeleteBSTOperation<T>(rutaArchivoBinario);
+//
+        //}
 
         // Métodos para Search y Delete se implementarían de manera similar
         public bool Search(T valor)
