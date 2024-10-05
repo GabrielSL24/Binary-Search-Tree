@@ -2,9 +2,9 @@
 {
     public class Delete<T> where T : IComparable<T>
     {
-        private string RutaArchivoBinario;
+        private string RutaArchivoBinario; //Variable para almacenar la ruta
 
-        public Delete(string rutaArchivo)
+        public Delete(string rutaArchivo) //Constructor
         {
             RutaArchivoBinario = rutaArchivo;
         }

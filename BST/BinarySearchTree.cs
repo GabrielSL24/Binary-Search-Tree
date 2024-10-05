@@ -2,7 +2,7 @@
 
 namespace BST_en_Disco
 {
-    public class BinarySearchTree<T> where T : IComparable<T>
+    public class BinarySearchTree<T> : IBinarySearchTree<T> where T : IComparable<T>
     {
         private string rutaArchivoBinario;
 
