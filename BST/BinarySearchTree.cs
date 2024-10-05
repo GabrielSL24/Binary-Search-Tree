@@ -1,5 +1,4 @@
-﻿using BST_en_Disco.BST.operacionesBTS;
-using Entities;
+﻿using Entities;
 
 namespace BST_en_Disco
 {
@@ -34,12 +33,12 @@ namespace BST_en_Disco
             var insertOperation = new InsertBSTOperation<T>(rutaArchivoBinario);
             insertOperation.Insert(valor);
         }
-
-        //public void Delete(T valor)
-        //{
-        //    var deleteOperation = new DeleteBSTOperation<T>(rutaArchivoBinario);
-//
-        //}
+        
+        public void Delete(T valor)
+        {
+            var deleteOperation = new Delete<T>(rutaArchivoBinario);  // Instanciamos la clase Delete
+            deleteOperation.Eliminar(valor);  // Llamamos al método de eliminación
+        }
 
         // Métodos para Search y Delete se implementarían de manera similar
         public bool Search(T valor)
