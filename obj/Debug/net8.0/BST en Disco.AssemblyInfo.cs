@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BST en Disco")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+52460081c45ad471ca4a32010587f4c7c0d94c37")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1015f8b446983508325716cbf3043c830dfd3f6c")]
 [assembly: System.Reflection.AssemblyProductAttribute("BST en Disco")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BST en Disco")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -33,5 +33,11 @@ namespace BST_en_Disco
         }
 
         // Métodos para Search y Delete se implementarían de manera similar
+        public bool Search(T valor)
+        {
+            // Instancia de la operación de búsqueda
+            var searchOperation = new BTSSearch<T>(rutaArchivoBinario);
+            return searchOperation.Search(valor);
+        }
     }
 }
