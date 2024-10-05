@@ -4,8 +4,17 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        BinarySearchTree<int> arbol1 = new BinarySearchTree<int>();
+    var bst = new BinarySearchTree<int>();
+    
+        Console.WriteLine("Insertando valores: 5, 3, 7, 2, 4, 6, 8");
+        bst.Insert(5);
+        bst.Insert(3);
+        bst.Insert(7);
+        bst.Insert(2);
+        bst.Insert(4);
+        bst.Insert(6);
+        bst.Insert(8);
 
-        arbol1.Insert(23);
+        Console.WriteLine("Inserción completada. Revise los mensajes de consola para verificar el proceso.");
     }
 }
